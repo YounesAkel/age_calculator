@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Age Calculator</title>
+</head>
+<body>
+    <h1>Age Calculator</h1>
+    <form id="ageForm">
+        <label for="birthdate">Date of Birth:</label>
+        <input type="date" id="birthdate" name="birthdate">
+        <button type="submit">Calculate Age</button>
+    </form>
+    <div id="result"></div>
+
+    <script>
+        function calculateAge(birthdate) {
+            var birthdate = new Date(birthdate);
+            var currentDate = new Date();
+            
+            var age = currentDate.getFullYear() - birthdate.getFullYear();
+            var currentMonth = currentDate.getMonth() + 1;
+            var birthMonth = birthdate.getMonth() + 1;
+            
+            // If current month is less than birth month,
+            // or if they are equal but current day is less than birth day,
+            // then age should be decreased by 1.
+            if (currentMonth < birthMonth || (currentMonth === birthMonth && currentDate.getDate() < birthdate.getDate())) {
+                age--;
+            }
+            
+            return age;
+        }
+
+        document.getElementById('ageForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            var birthdate = document.getElementById('birthdate').value;
+            var age = calculateAge(birthdate);
+            document.getElementById('result').innerText = "The age is: " + age;
+        });
+    </script>
+</body>
+</html>
